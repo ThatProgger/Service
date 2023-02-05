@@ -1,0 +1,287 @@
+<section
+  th:fragment="LampSelected"
+  data-section="materialAndNotes">
+  <input
+    type="number"
+    id="lampId"
+    th:value="${lamp.id}"
+    hidden />
+  <span
+    class="lampNumber"
+    th:text="${lamp.lampNumber}"></span>
+
+  <details
+    th:replace="~{lampFragments/details/materials/materialImp1 :: materials}"></details>
+  <details th:replace="~{lampFragments/details/jobs/jobImp1 :: job}"></details>
+  <details
+    th:replace="~{lampFragments/details/notes/noteImp1 :: note}"></details>
+
+  <input
+    type="button"
+    value="Снять с ремонта"
+    id="submit" />
+
+  <script>
+    var materialCounter = 0;
+    var noteCounter = 0;
+    var jobCounter = 0;
+    var materialNomenclatures;
+    var jobNomenclatures;
+    var materials = [];
+    var notes = [];
+    var jobs = [];
+
+    $(document).ready(function () {
+      $.getJSON("/material-nomenclatures", function (data) {
+        materialNomenclatures = data;
+        console.log(materialNomenclatures);
+      });
+      $.getJSON("/job-nomenclatures", function (data) {
+        jobNomenclatures = data;
+        console.log(jobNomenclatures);
+      });
+    });
+
+    // Add materials
+    $("#AddMaterial").click(function () {
+      var material = new Object();
+      material.id = materialCounter;
+      material.amount = "1";
+      material.nomenclature = "No";
+      materials.push(material);
+
+      var li = $("<li>", {id: materialCounter});
+      var selectDiv = $("<div>", {class: "selectContainer"});
+      var inputNumberDiv = $("<div>", {class: "inputNumberContainer"});
+      var inputButtonDiv = $("<div>", {class: "inputButtonContainer"});
+
+      var materialSelect = $("<select>", {id: materialCounter});
+      var materialInputNumber = $("<input>", {
+        type: "number",
+        value: "1",
+        id: materialCounter,
+      });
+      var materialInputButton = $("<input>", {
+        type: "button",
+        value: "Удалить",
+        id: materialCounter,
+      });
+
+      materialSelect.append(
+        $("<option>").text("Выбрать материал").attr("value", "Выбрать материал")
+      );
+
+      for (let index = 0; index < materialNomenclatures.length; index++) {
+        const element = materialNomenclatures[index];
+        materialSelect.append(
+          $("<option>")
+            .text(element.nomenclature)
+            .attr("value", element.nomenclature)
+        );
+      }
+
+      materialSelect.change(function () {
+        debugger;
+        const id = parseInt(this.id);
+        const value = this.value;
+        const idx = materials.findIndex((x) => x.id === id);
+        var element = materials.find((x) => x.id === id);
+        element.nomenclature = value;
+        materials.slice(idx, idx + 1);
+        console.log(materials);
+      });
+
+      materialInputNumber.change(function () {
+        debugger;
+        const id = parseInt(this.id);
+        const value = this.value;
+        const idx = materials.findIndex((x) => x.id === id);
+        var element = materials.find((x) => x.id === id);
+        element.amount = value;
+        materials.slice(idx, idx + 1);
+        console.log(materials);
+      });
+
+      materialInputButton.click(function () {
+        debugger;
+        var ID = "#" + this.id;
+        const id = parseInt(this.id);
+        var tempArr = [];
+
+        for (let index = 0; index < materials.length; index++) {
+          if (materials[index].id != id) {
+            tempArr.push(materials[index]);
+          }
+        }
+
+        $(ID).remove();
+        materials = tempArr;
+        console.log(materials);
+      });
+
+      selectDiv.append(materialSelect);
+      inputNumberDiv.append(materialInputNumber);
+      inputButtonDiv.append(materialInputButton);
+
+      li.append(selectDiv);
+      li.append(inputNumberDiv);
+      li.append(inputButtonDiv);
+
+      $("#MaterialList").append(li);
+      console.log(materials);
+      materialCounter++;
+    });
+
+    // Add notes
+    $("#AddNote").click(function () {
+      debugger;
+      var note = new Object();
+      note.id = noteCounter;
+      note.message = "Введите примечание";
+      notes.push(note);
+
+      var li = $("<li>", {id: noteCounter});
+      var inputTextDiv = $("<div>", {class: "inputTextContainer"});
+      var inputButtonDiv = $("<div>", {class: "inputButtonContainer"});
+
+      var inputText = $("<input>", {
+        type: "text",
+        id: noteCounter,
+        placeholder: "Введите примечание",
+      });
+      var inputButton = $("<input>", {
+        type: "button",
+        id: noteCounter,
+        value: "Удалить",
+      });
+
+      inputText.change(function () {
+        debugger;
+        const ID = parseInt(this.id);
+        const idx = notes.findIndex((x) => x.id === ID);
+        var element = notes.find((x) => x.id === ID);
+        element.message = this.value;
+
+        console.log(notes);
+      });
+
+      inputButton.click(function () {
+        debugger;
+        const ID = "#" + this.id;
+        const idx = parseInt(this.id);
+        var tempArr = [];
+
+        for (let index = 0; index < notes.length; index++) {
+          if (notes[index].id != idx) {
+            tempArr.push(notes[index]);
+          }
+        }
+
+        notes = tempArr;
+        $(ID).remove();
+
+        console.log(notes);
+      });
+
+      inputTextDiv.append(inputText);
+      inputButtonDiv.append(inputButton);
+      li.append(inputTextDiv);
+      li.append(inputButtonDiv);
+
+      $("#notesList").append(li);
+      console.log(notes);
+      noteCounter++;
+    });
+
+    // Add job
+
+    $("#AddJob").click(function () {
+      debugger;
+      var job = new Object();
+      job.id = jobCounter;
+      job.nomenclature = "No";
+      jobs.push(job);
+
+      var li = $("<li>", {id: jobCounter});
+
+      var inputTextDiv = $("<div>", {class: "inputTextContainer"});
+      var inputButtonDiv = $("<div>", {class: "inputButtonContainer"});
+
+      var jobSelect = $("<select>", {id: jobCounter});
+      var inputButton = $("<input>", {
+        type: "button",
+        id: jobCounter,
+        value: "Удалить",
+      });
+
+      jobSelect.append(
+        $("<option>").text("Выбрать работу").attr("value", "Выбрать работу")
+      );
+
+      for (let index = 0; index < jobNomenclatures.length; index++) {
+        const element = jobNomenclatures[index];
+        jobSelect.append(
+          $("<option>")
+            .text(element.nomenclature)
+            .attr("value", element.nomenclature)
+        );
+      }
+
+      jobSelect.change(function () {
+        const ID = parseInt(this.id);
+        var element = jobs.find((x) => x.id === ID);
+        element.nomenclature = this.value;
+
+        console.log(jobs);
+      });
+
+      inputButton.click(function () {
+        const ID = parseInt(this.id);
+        var tempArr = [];
+        for (let index = 0; index < jobs.length; index++) {
+          if (jobs[index].id != ID) {
+            tempArr.push(jobs[index]);
+          }
+        }
+
+        $("#" + ID).remove();
+        jobs = tempArr;
+        console.log(jobs);
+      });
+
+      inputTextDiv.append(jobSelect);
+      inputButtonDiv.append(inputButton);
+
+      li.append(inputTextDiv);
+      li.append(inputButtonDiv);
+
+      $("#JobsList").append(li);
+      jobCounter++;
+    });
+
+    // Submit button
+    $("#submit").click(function () {
+      var submitForm = new Object();
+      submitForm.id = $("#lampId").val();
+      submitForm.materials = materials;
+      submitForm.jobs = jobs;
+      submitForm.notes = notes;
+      const jsonString = JSON.stringify(submitForm);
+
+      $.ajax({
+        url: "/lamp-submit",
+        method: "post",
+        dataType: "json",
+        contentType: "application/json",
+        data: jsonString,
+        success: function (data) {
+          if (data === true) {
+            window.location.href = "/lamps/repair";
+          } else {
+            alert("Не верно заданы параметры журнала!");
+          }
+        },
+      });
+    });
+  </script>
+</section>

@@ -1,0 +1,52 @@
+<details th:fragment="InProcess">
+  <summary
+    data-summary="broken"
+    th:text="${inProcessLamp.lampNumber}">
+    112
+  </summary>
+
+  <span
+    class="date"
+    th:text="'Поставлен: ' + ${inProcessLamp.created}"
+    >Поставлен: 2022-112-22</span
+  >
+
+  <span
+    class="date"
+    th:text="'Последнее изменение: ' + ${inProcessLamp.updated}"
+    >Поставлен: 2022-112-22</span
+  >
+
+  <div class="container">
+    <span class="title">Неисправность:</span>
+    <ul>
+      <li
+        th:each="defect : ${inProcessLamp.defects}"
+        th:text="${defect.name}">
+        Lorem, ipsum dolor.
+      </li>
+    </ul>
+  </div>
+
+  <th:block th:if="${inProcessLamp.message != ''}">
+    <div class="container">
+      <span class="title">Примечание ламповщика:</span>
+      <ul>
+        <li th:text="${inProcessLamp.message}">Lorem, ipsum dolor.</li>
+      </ul>
+    </div>
+  </th:block>
+
+  <th:block th:if="${toRepair eq true}">
+    <div class="buttonContainer">
+      <span>
+        <a
+          href="#"
+          th:href="@{/lamps/repair/{id}(id=${inProcessLamp.id})}"
+          class="process">
+          Выбрать
+        </a>
+      </span>
+    </div>
+  </th:block>
+</details>

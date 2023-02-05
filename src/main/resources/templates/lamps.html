@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      http-equiv="X-UA-Compatible"
+      content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0" />
+    <title>Журнал</title>
+    <link
+      rel="stylesheet"
+      href="/static/styles/css/lamp.css"
+      th:href="@{/styles/css/lamp.css}" />
+
+    <script
+      src="/static/jquery/jquery.js"
+      th:src="@{/jquery/jquery.js}"></script>
+  </head>
+  <body>
+    <header>
+      <ul>
+        <li>
+          <a
+            href="#"
+            th:href="@{/lamps/add}"
+            >Вход для ламповой</a
+          >
+        </li>
+        <li>
+          <a
+            href="#"
+            th:href="@{/lamps/repair}"
+            >Вход для специалиста</a
+          >
+        </li>
+        <li>
+          <form
+            th:action="@{/logout}"
+            method="POST">
+            <input
+              type="submit"
+              value="Выйти" />
+          </form>
+        </li>
+      </ul>
+    </header>
+
+    <th:block th:if="${main eq 'Sfd8zrP6'}">
+      <main th:replace="~{lampFragments/main/add :: add}"></main>
+    </th:block>
+
+    <th:block th:if="${main eq 'Sfd8zrP7'}">
+      <main th:replace="~{lampFragments/main/repair :: repair}"></main>
+    </th:block>
+
+    <footer></footer>
+  </body>
+</html>

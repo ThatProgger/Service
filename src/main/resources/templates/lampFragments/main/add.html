@@ -1,0 +1,100 @@
+<!-- add lamps -->
+<main th:fragment="add">
+  <section data-section="form">
+    <form
+      th:action="@{/lamps/add}"
+      method="POST">
+      <div class="lamp-items">
+        <ul>
+          <li th:each="defectNomeclature : ${defectNomenclatures}">
+            <input
+              type="checkbox"
+              th:value="${defectNomeclature.id}"
+              th:field="${lamp.defects}" />
+            <label
+              for=""
+              th:text="${defectNomeclature.nomenclature}"
+              >Lorem, ipsum dolor.</label
+            >
+          </li>
+        </ul>
+        <textarea th:field="${lamp.message}"></textarea>
+      </div>
+      <div class="number-lamp">
+        <input
+          type="number"
+          value="0"
+          th:field="${lamp.lampNumber}" />
+        <input
+          type="submit"
+          value="Добавить" />
+        <div
+          class="errMessageFromServer"
+          th:if="${lampStatus eq false}"
+          th:text="${message}">
+          Lorem, ipsum dolor.
+        </div>
+        <div
+          class="successMessageFromServer"
+          th:if="${lampStatus eq true}"
+          th:text="${message}">
+          Lorem, ipsum dolor.
+        </div>
+      </div>
+    </form>
+  </section>
+  <section data-section="lamp">
+    <ul>
+      <li
+        data-li="broken"
+        th:each="brokenLamp : ${brokenLamps}">
+        <!-- <details
+          th:replace="lampFragments/details/broken/brokenImp1 :: broken"></details> -->
+
+        <details
+          th:replace="~{lampFragments/details/broken/brokenImp2 :: broken}"></details>
+      </li>
+    </ul>
+    <ul>
+      <li
+        data-li="success"
+        th:each="refurbishedLamp : ${refurbishedLamps}">
+        <!-- <details
+          th:replace="lampFragments/details/refurbished/refurbishedImp1 :: refurbished"></details> -->
+
+        <details
+          th:replace="~{lampFragments/details/refurbished/refurbishedImp2 :: refurbished}"></details>
+      </li>
+    </ul>
+    <ul>
+      <li
+        data-li="process"
+        th:each="inProcessLamp : ${inProcessLamps}">
+        <!-- <details
+          th:replace="lampFragments/details/inProcess/inProcessImp1 :: InProcess"></details> -->
+
+        <details
+          th:replace="~{lampFragments/details/inProcess/inProcessImp2 :: InProcess}"></details>
+      </li>
+    </ul>
+  </section>
+
+  <!-- Simple script updates pages if any changes occured -->
+  <script>
+    $(document).ready(function () {
+      var timestamp = 0;
+
+      $.get("/timestamp", function (data) {
+        timestamp = data;
+      });
+
+      setInterval(function () {
+        $.get("/timestamp", function (data) {
+          if (timestamp != data) {
+            window.location.reload();
+          }
+        });
+      }, 10000);
+    });
+  </script>
+</main>

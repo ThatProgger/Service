@@ -1,0 +1,96 @@
+<details
+  th:fragment="refurbished"
+  data-details="refurbished">
+  <summary
+    data-summary="broken"
+    th:text="${refurbishedLamp.lampNumber}">
+    112
+  </summary>
+  <span
+    class="date"
+    th:text="'Поставлен: ' + ${refurbishedLamp.created} + ' \ обновлен: ' + ${refurbishedLamp.updated}"
+    >Поставлен: 2022-112-22</span
+  >
+
+  <div
+    class="container"
+    th:if="${refurbishedLamp.materials.size() != 0}">
+    <table>
+      <thead>
+        <tr>
+          <th colspan="4">Материал</th>
+          <th colspan="1">Количество</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="material : ${refurbishedLamp.materials}">
+          <td
+            th:text="${material.nomenclature}"
+            colspan="4">
+            Lorem, ipsum.
+          </td>
+          <td
+            th:text="${material.amount}"
+            colspan="1">
+            Alias, asperiores?
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div
+    class="container"
+    th:if="${refurbishedLamp.jobs.size() != 0}">
+    <table>
+      <thead>
+        <tr>
+          <th>Работа</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="job : ${refurbishedLamp.jobs}">
+          <td th:text="${job.nomenclature}">Lorem, ipsum.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div
+    class="container"
+    th:if="${refurbishedLamp.notes.size() != 0}">
+    <table>
+      <thead>
+        <tr>
+          <th>Примечание</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="note : ${refurbishedLamp.notes}">
+          <td th:text="${note.message}">Lorem, ipsum.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <th:block th:if="${selectStatus eq true}">
+    <div class="buttonContainer">
+      <span
+        ><a
+          href="#"
+          th:href="@{/lamps/canceled/{id}(id=${refurbishedLamp.id})}"
+          class="success"
+          >Снять с ремонта</a
+        ></span
+      >
+      <span
+        ><a
+          href="#"
+          th:href="@{/lamps/broken/{id}(id=${refurbishedLamp.id})}"
+          class="unsuccess"
+          >Поставить в ремонт</a
+        ></span
+      >
+    </div>
+  </th:block>
+</details>

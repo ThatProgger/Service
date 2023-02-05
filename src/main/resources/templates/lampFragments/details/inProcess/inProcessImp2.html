@@ -1,0 +1,58 @@
+<details
+  th:fragment="InProcess"
+  data-details="inProgress">
+  <summary th:text="${inProcessLamp.lampNumber}">123</summary>
+  <span
+    class="date"
+    th:text="'Поставлен: ' + ${inProcessLamp.created} + ' \ обновлен: ' + ${inProcessLamp.updated}"
+    >Поставлен: 2022-112-22</span
+  >
+
+  <th:block th:if="${inProcessLamp.defects.size() != 0}">
+    <div class="container">
+      <table>
+        <thead>
+          <tr>
+            <th>Заявленная неисправность:</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="defect : ${inProcessLamp.defects}">
+            <td th:text="${defect.name}"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </th:block>
+
+  <th:block th:if="${inProcessLamp.message != ''}">
+    <div class="container">
+      <div class="container">
+        <table>
+          <thead>
+            <tr>
+              <th>Примечание ламповщика:</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td th:text="${inProcessLamp.message}"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </th:block>
+  <th:block th:if="${toRepair eq true}">
+    <div class="buttonContainer">
+      <span>
+        <a
+          href="#"
+          th:href="@{/lamps/repair/{id}(id=${inProcessLamp.id})}"
+          class="unsuccess">
+          Выбрать
+        </a>
+      </span>
+    </div>
+  </th:block>
+</details>

@@ -1,0 +1,78 @@
+<details th:fragment="refurbished">
+  <summary
+    data-summary="broken"
+    th:text="${refurbishedLamp.lampNumber}">
+    112
+  </summary>
+  <span
+    class="date"
+    th:text="'Поставлен: ' + ${refurbishedLamp.created}"
+    >Поставлен: 2022-112-22</span
+  >
+  <span
+    class="date"
+    th:text="'Обновлен: ' + ${refurbishedLamp.updated}"
+    >Поставлен: 2022-112-22</span
+  >
+  <div
+    class="container"
+    th:if="${refurbishedLamp.materials.size() != 0}">
+    <span class="title">Материалы:</span>
+    <ul>
+      <li th:each="material : ${refurbishedLamp.materials}">
+        <span
+          th:text="${material.nomenclature}"
+          class="materialNomenclature"></span>
+        <span
+          th:text="${material.amount}"
+          class="materialAmount"></span>
+      </li>
+    </ul>
+  </div>
+
+  <div
+    class="container"
+    th:if="${refurbishedLamp.jobs.size() != 0}">
+    <span class="title">Работа:</span>
+    <ul>
+      <li
+        th:each="job : ${refurbishedLamp.jobs}"
+        th:text="${job.nomenclature}">
+        Lorem, ipsum dolor.
+      </li>
+    </ul>
+  </div>
+  <div
+    class="container"
+    th:if="${refurbishedLamp.notes.size() != 0}">
+    <span class="title">Примечание:</span>
+    <ul>
+      <li
+        th:each="note : ${refurbishedLamp.notes}"
+        th:text="${note.message}">
+        Lorem, ipsum dolor.
+      </li>
+    </ul>
+  </div>
+
+  <th:block th:if="${selectStatus eq true}">
+    <div class="buttonContainer">
+      <span
+        ><a
+          href="#"
+          th:href="@{/lamps/canceled/{id}(id=${refurbishedLamp.id})}"
+          class="success"
+          >Снять с ремонта</a
+        ></span
+      >
+      <span
+        ><a
+          href="#"
+          th:href="@{/lamps/broken/{id}(id=${refurbishedLamp.id})}"
+          class="unsuccess"
+          >Поставить в ремонт</a
+        ></span
+      >
+    </div>
+  </th:block>
+</details>

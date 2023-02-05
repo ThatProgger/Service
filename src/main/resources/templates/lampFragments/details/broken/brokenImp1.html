@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      http-equiv="X-UA-Compatible"
+      content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <details th:fragment="broken">
+      <summary
+        data-summary="broken"
+        th:text="${brokenLamp.lampNumber}">
+        112
+      </summary>
+      <span
+        class="date"
+        th:text="'Поставлен: ' + ${brokenLamp.created}"
+        >Поставлен: 2022-112-22</span
+      >
+
+      <span
+        class="date"
+        th:text="'Последнее изменение: ' + ${brokenLamp.updated}"
+        >Поставлен: 2022-112-22</span
+      >
+
+      <div class="container">
+        <span class="title">Заявленная неисправность:</span>
+        <ul>
+          <li
+            th:each="defect : ${brokenLamp.defects}"
+            th:text="${defect.name}">
+            Lorem, ipsum dolor.
+          </li>
+        </ul>
+      </div>
+
+      <th:block th:if="${brokenLamp.message != ''}">
+        <div class="container">
+          <span class="title">Примечание ламповщика:</span>
+          <ul>
+            <li th:text="${brokenLamp.message}">Lorem, ipsum dolor.</li>
+          </ul>
+        </div>
+      </th:block>
+
+      <th:block th:if="${toCanceled eq true}">
+        <div class="buttonContainer">
+          <span>
+            <a
+              href="#"
+              class="unsuccess"
+              th:href="@{/lamps/error/{id}(id=${brokenLamp.id})}">
+              Убрать с ремонта
+            </a>
+          </span>
+        </div>
+      </th:block>
+
+      <th:block th:if="${toRepair eq true}">
+        <div class="buttonContainer">
+          <span>
+            <a
+              href="#"
+              class="unsuccess"
+              th:href="@{/lamps/inProcess/{id}(id = ${brokenLamp.id})}">
+              Поставить в ремонт
+            </a>
+          </span>
+        </div>
+      </th:block>
+    </details>
+  </body>
+</html>

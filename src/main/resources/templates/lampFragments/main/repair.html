@@ -1,0 +1,59 @@
+<main th:fragment="repair">
+  <section data-section="lamp">
+    <ul>
+      <li
+        data-li="broken"
+        th:each="brokenLamp : ${brokenLamps}">
+        <details
+          th:replace="~{lampFragments/details/broken/brokenImp2 :: broken}"></details>
+      </li>
+    </ul>
+    <ul>
+      <li
+        data-li="process"
+        th:each="inProcessLamp : ${inProcessLamps}">
+        <details
+          th:replace="~{lampFragments/details/inProcess/inProcessImp2 :: InProcess}"></details>
+      </li>
+    </ul>
+  </section>
+
+  <th:block th:if="${section eq 'Sfd8zrP12'}">
+    <section
+      th:replace="~{lampFragments/section/noLampSelected :: NoLampSelected}"></section>
+  </th:block>
+
+  <th:block th:if="${section eq 'Sfd8zrP13'}">
+    <section
+      th:replace="~{lampFragments/section/lampSelected :: LampSelected}"></section>
+  </th:block>
+
+  <section data-section="lamp">
+    <ul>
+      <li
+        data-li="success"
+        th:each="refurbishedLamp : ${refurbishedLamps}">
+        <details
+          th:replace="~{lampFragments/details/refurbished/refurbishedImp2 :: refurbished}"></details>
+      </li>
+    </ul>
+  </section>
+  <!-- Simple script updates pages if any changes occured -->
+  <script>
+    $(document).ready(function () {
+      var timestamp = 0;
+
+      $.get("/timestamp", function (data) {
+        timestamp = data;
+      });
+
+      setInterval(function () {
+        $.get("/timestamp", function (data) {
+          if (timestamp != data) {
+            window.location.reload();
+          }
+        });
+      }, 10000);
+    });
+  </script>
+</main>

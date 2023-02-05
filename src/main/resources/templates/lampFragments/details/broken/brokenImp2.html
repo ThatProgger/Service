@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      http-equiv="X-UA-Compatible"
+      content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <details
+      th:fragment="broken"
+      data-details="broken">
+      <summary
+        th:text="${brokenLamp.lampNumber}">
+        114
+      </summary>
+
+      <span
+        class="date"
+        th:text="'Поставлен: ' + ${brokenLamp.created} + ' \ обновлен: ' +  ${brokenLamp.updated}"
+        >Поставлен: 2022-112-22</span
+      >
+
+      <th:block th:if="${brokenLamp.defects.size() != 0}">
+      <div class="container">
+        <table>
+          <thead>
+            <tr>
+              <th>Заявленная неисправность:</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="defect : ${brokenLamp.defects}">
+              <td th:text="${defect.name}"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      </th:block>
+    </th:block>
+    <th:block th:if="${brokenLamp.message != ''}">
+      <div class="container">
+        <table>
+          <thead>
+            <tr>
+              <th>Примечание ламповщика:</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td th:text="${brokenLamp.message}"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </th:block>
+
+      <th:block th:if="${toCanceled eq true}">
+        <div class="buttonContainer">
+          <span>
+            <a
+              href="#"
+              class="unsuccess"
+              th:href="@{/lamps/error/{id}(id=${brokenLamp.id})}">
+              Убрать с ремонта
+            </a>
+          </span>
+        </div>
+      </th:block>
+
+      <th:block th:if="${toRepair eq true}">
+        <div class="buttonContainer">
+          <span>
+            <a
+              href="#"
+              class="unsuccess"
+              th:href="@{/lamps/inProcess/{id}(id = ${brokenLamp.id})}">
+              Поставить в ремонт
+            </a>
+          </span>
+        </div>
+      </th:block>
+    </details>
+  </body>
+</html>

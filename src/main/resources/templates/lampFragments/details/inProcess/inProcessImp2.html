@@ -43,16 +43,17 @@
       </div>
     </div>
   </th:block>
-  <th:block th:if="${toRepair eq true}">
-    <div class="buttonContainer">
-      <span>
-        <a
-          href="#"
-          th:href="@{/lamps/repair/{id}(id=${inProcessLamp.id})}"
-          class="unsuccess">
-          Выбрать
-        </a>
-      </span>
-    </div>
-  </th:block>
+
+  <div
+    class="buttonContainer"
+    sec:authorize="hasAnyRole('ADMIN', 'TECHNICAL')">
+    <span>
+      <a
+        href="#"
+        th:href="@{/lamps/repair/{id}(id=${inProcessLamp.id})}"
+        class="unsuccess">
+        Выбрать
+      </a>
+    </span>
+  </div>
 </details>

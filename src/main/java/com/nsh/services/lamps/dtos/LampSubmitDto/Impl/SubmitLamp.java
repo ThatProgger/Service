@@ -1,5 +1,8 @@
-package com.nsh.services.lamps.model;
+package com.nsh.services.lamps.dtos.LampSubmitDto.Impl;
 
+import com.nsh.services.lamps.model.Job;
+import com.nsh.services.lamps.model.Material;
+import com.nsh.services.lamps.model.Note;
 import lombok.Data;
 
 import java.util.List;

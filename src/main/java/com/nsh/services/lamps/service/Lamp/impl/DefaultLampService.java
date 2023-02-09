@@ -14,7 +14,11 @@ import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.stereotype.Service;
 
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * The class implements the LampService interface and allows you to work with lamp objects
@@ -58,6 +62,27 @@ public class DefaultLampService implements LampService {
         if(logger.isInfoEnabled())
             logger.info("[findAllByRepairedStatus] - collection size: {} ", size);
         return lampIterable;
+    }
+
+    @Override
+    public Iterable<Lamp> findAllByCompletedStatus() {
+        Iterable<Lamp> lampIterable = lampRepository.findByLifeCycleOrderByLampNumber(LifeCycle.completed);
+        long size = lampIterable.spliterator().getExactSizeIfKnown();
+        if(logger.isInfoEnabled())
+            logger.info("[findAllByCompletedStatus] - collection size: {} ", size);
+        return lampIterable;
+    }
+
+    @Override
+    public Map<Integer, List<Lamp>> findAllByGroup() {
+        Iterable<Lamp> list = lampRepository.findByLifeCycleOrderByLampNumber(LifeCycle.completed);
+        List<Lamp> lampList = new ArrayList<>();
+        list.forEach(lampList::add);
+
+        Map<Integer, List<Lamp>> map = lampList.stream().collect(Collectors.groupingBy(lamp -> {
+            return lamp.getLampNumber();
+        }));
+        return map;
     }
 
     @Override

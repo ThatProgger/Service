@@ -59,8 +59,7 @@
       </div>
     </th:block>
 
-      <th:block th:if="${toCanceled eq true}">
-        <div class="buttonContainer">
+        <div class="buttonContainer" sec:authorize="hasAnyRole('ADMIN', 'USER')">
           <span>
             <a
               href="#"
@@ -70,10 +69,8 @@
             </a>
           </span>
         </div>
-      </th:block>
 
-      <th:block th:if="${toRepair eq true}">
-        <div class="buttonContainer">
+        <div class="buttonContainer" sec:authorize="hasAnyRole('ADMIN', 'TECHNICAL')">
           <span>
             <a
               href="#"
@@ -83,7 +80,8 @@
             </a>
           </span>
         </div>
-      </th:block>
+
+
     </details>
   </body>
 </html>

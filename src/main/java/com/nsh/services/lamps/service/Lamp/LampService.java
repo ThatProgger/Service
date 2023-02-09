@@ -5,6 +5,8 @@ import com.nsh.services.lamps.enums.LampSaveStatus;
 import com.nsh.services.lamps.model.Lamp;
 
 import java.security.Principal;
+import java.util.List;
+import java.util.Map;
 
 /**
  * The interface allows you to work with the Lamp object
@@ -21,6 +23,10 @@ public interface LampService {
     public Iterable<Lamp> findAllByInProgressStatus();
 
     public Iterable<Lamp> findAllByRepairedStatus();
+
+    public Iterable<Lamp> findAllByCompletedStatus ();
+
+    public Map<Integer, List<Lamp>> findAllByGroup ();
 
     public Lamp findLampById(int id);
 

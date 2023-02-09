@@ -2,7 +2,7 @@ package com.nsh.services.lamps.JsonParser.Impl;
 
 import com.google.gson.Gson;
 import com.nsh.services.lamps.JsonParser.JsonParser;
-import com.nsh.services.lamps.model.SubmitLamp;
+import com.nsh.services.lamps.dtos.LampSubmitDto.Impl.SubmitLamp;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

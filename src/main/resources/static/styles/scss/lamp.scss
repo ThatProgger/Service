@@ -22,14 +22,10 @@ $trans: all 0.5s ease-in-out;
   padding: 0;
 }
 
-body {
-  background-color: $lead;
-  width: 100%;
-  height: 100vh;
-  overflow: visible;
-
+@mixin scroll {
+  overflow-y: scroll;
   &::-webkit-scrollbar {
-    width: 0;
+    display: none;
   }
 }
 
@@ -37,15 +33,16 @@ body {
   ul {
     li {
       display: inline-block;
-      margin-left: 15px;
+      // margin-left: 15px;
+      margin-left: 5px;
       a {
         color: white;
         text-decoration: none;
-        font-size: 1.1em;
+        // font-size: 1.1em;
         transition: $trans;
 
         &:hover {
-          color: gray;
+          border-bottom: 1px solid white;
         }
       }
 
@@ -65,7 +62,7 @@ body {
   }
 }
 
-@mixin details() {
+@mixin techDetails() {
   details {
     display: block;
     margin: 0 auto;
@@ -192,7 +189,7 @@ body {
   }
 }
 
-@mixin markedDetailsImpl2() {
+@mixin markedDetails() {
   details {
     width: 100%;
     border-radius: 10px;
@@ -215,32 +212,22 @@ body {
     display: block;
     // background-color: green;
     text-align: center;
-    border-top: 3px solid black;
+    border-bottom: 1px solid black;
     margin: 0 auto;
     // padding-top: 5px;
     font-size: 0.7em;
   }
 
   .container {
-    .title {
-      display: block;
-      margin-top: 5px;
-      padding-left: 10px;
-      font-weight: bold;
-    }
-
-    .message {
-      padding: 0;
-      margin: 0;
-      font-size: 0.8em;
-      padding-left: 10px;
-    }
-
+    display: flex;
+    justify-content: center;
+    align-items: center;
     table {
-      width: 100%;
+      width: 90%;
       table-layout: fixed;
+      margin-bottom: 10px;
       // text-align: center;
-      margin-top: 10px;
+      // margin-top: 10px;
       th {
         border: none;
         border-bottom: 1px solid #000;
@@ -313,6 +300,23 @@ body {
   details[data-details="refurbished"] {
     background-color: $cucumber;
   }
+
+  details[data-details="broad"] {
+    background-color: $raiden-blue;
+  }
+
+  details[data-details="blue"] {
+    background-color: $broad-daylight;
+  }
+}
+
+body {
+  background-color: $lead;
+  width: 100%;
+  height: 100vh;
+  overflow: visible;
+
+  @include scroll();
 }
 
 header {
@@ -330,7 +334,54 @@ main {
   height: 85vh;
   background-color: #fff;
   display: flex;
-  // padding: 10px 0;
+
+  section[data-section="journal"] {
+    width: 60%;
+    // background-color: red;
+    margin: 0 auto;
+    height: calc(100% - 10px);
+
+    li {
+      margin-top: 3px;
+      details {
+        summary {
+          color: white;
+        }
+
+        ul {
+          width: 70%;
+          margin: 0 auto;
+          li {
+            list-style: none;
+            margin-top: 3px;
+
+            .title {
+              display: block;
+              text-align: center;
+              font-size: 0.8em;
+              border-bottom: 1px solid #000;
+            }
+            summary {
+              font-size: 0.8em;
+              color: black;
+            }
+
+            &:last-child {
+              padding-bottom: 10px;
+            }
+          }
+        }
+      }
+    }
+
+    span {
+      display: block;
+      font-size: 0.6em;
+    }
+
+    @include scroll();
+    @include markedDetails();
+  }
 
   section[data-section="materialAndNotes"] {
     flex: 1;
@@ -364,7 +415,8 @@ main {
       margin: 0 auto;
       margin-top: 5px;
     }
-    @include details();
+
+    @include techDetails();
   }
 
   section[data-section="form"] {
@@ -508,21 +560,8 @@ main {
       display: flex;
       align-items: center;
       margin-top: 5px;
-      // border-radius: 5px;
-
-      // @include markedDetails();
-      @include markedDetailsImpl2();
+      @include markedDetails();
     }
-
-    // li[data-li="broken"] {
-    //   background-color: $red;
-    // }
-    // li[data-li="success"] {
-    //   background-color: green;
-    // }
-    // li[data-li="process"] {
-    //   background-color: orange;
-    // }
   }
 }
 

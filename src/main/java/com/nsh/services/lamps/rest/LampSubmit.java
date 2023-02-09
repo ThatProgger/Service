@@ -2,12 +2,14 @@ package com.nsh.services.lamps.rest;
 
 import com.nsh.services.lamps.JsonParser.Enum.JsonType;
 import com.nsh.services.lamps.JsonParser.Factory.JsonParserFactory;
-import com.nsh.services.lamps.JsonParser.Impl.JsonParserByLampSubmit;
 import com.nsh.services.lamps.JsonParser.JsonParser;
 import com.nsh.services.lamps.component.TimestampMarker;
+import com.nsh.services.lamps.dtos.LampSubmitDto.Impl.SubmitLamp;
 import com.nsh.services.lamps.enums.LifeCycle;
 import com.nsh.services.lamps.model.*;
 import com.nsh.services.lamps.service.Lamp.LampService;
+import com.nsh.services.user.model.User;
+import com.nsh.services.user.userService.UserService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +36,8 @@ public class LampSubmit {
     @Autowired
     private LampService lampService;
     @Autowired
+    private UserService userService;
+    @Autowired
     private TimestampMarker timestampMarker;
 
 
@@ -46,6 +50,8 @@ public class LampSubmit {
      */
     @PostMapping
     public boolean parsingJson(@RequestBody String json, Principal principal) {
+
+        User user = userService.findByUsername(principal.getName());
 
         JsonParser jsonParser = JsonParserFactory.create(JsonType.LampSubmit);
         SubmitLamp submitLamp = (SubmitLamp) jsonParser.parse(json);
@@ -81,8 +87,9 @@ public class LampSubmit {
             lamp.getNotes().add(Note.builder().id(0).message(note.getMessage()).build());
         });
 
+
         lamp.setLifeCycle(LifeCycle.repaired);
-        lamp.setExecutor(principal.getName());
+        lamp.setExecutor(user.getFullName());
 
         if (lampService.update(lamp)) {
             timestampMarker.setTimestamp(System.currentTimeMillis());

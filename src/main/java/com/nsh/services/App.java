@@ -24,6 +24,7 @@ import java.util.List;
 
 @SpringBootApplication
 @EnableJpaAuditing
+//@EnableMethodSecurity
 public class App implements CommandLineRunner {
     private Logger logger = LogManager.getLogger(App.class);
     @Autowired
@@ -98,7 +99,7 @@ public class App implements CommandLineRunner {
     public void registerJobNomenclature() {
         jobNomenclatureService.save(JobNomenclature.builder().id(0).nomenclature("Ремонт электрической цепи").build());
         jobNomenclatureService.save(JobNomenclature.builder().id(0).nomenclature("Зарядка АКБ").build());
-        jobNomenclatureService.save(JobNomenclature.builder().id(0).nomenclature("Обновление микро ПО радио блока под версию 1.2.3").build());
+        jobNomenclatureService.save(JobNomenclature.builder().id(0).nomenclature("Обновление микро ПО радио блока").build());
 
     }
 

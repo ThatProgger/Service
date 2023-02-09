@@ -10,9 +10,10 @@ body {
   width: 100%;
   height: 100vh;
   overflow: visible;
+  overflow-y: scroll;
 }
 body::-webkit-scrollbar {
-  width: 0;
+  display: none;
 }
 
 header {
@@ -24,16 +25,15 @@ header {
 }
 header ul li {
   display: inline-block;
-  margin-left: 15px;
+  margin-left: 5px;
 }
 header ul li a {
   color: white;
   text-decoration: none;
-  font-size: 1.1em;
   transition: all 0.5s ease-in-out;
 }
 header ul li a:hover {
-  color: gray;
+  border-bottom: 1px solid white;
 }
 header ul li input[type=submit] {
   background-color: transparent;
@@ -53,6 +53,145 @@ main {
   height: 85vh;
   background-color: #fff;
   display: flex;
+}
+main section[data-section=journal] {
+  width: 60%;
+  margin: 0 auto;
+  height: calc(100% - 10px);
+  overflow-y: scroll;
+}
+main section[data-section=journal] li {
+  margin-top: 3px;
+}
+main section[data-section=journal] li details summary {
+  color: white;
+}
+main section[data-section=journal] li details ul {
+  width: 70%;
+  margin: 0 auto;
+}
+main section[data-section=journal] li details ul li {
+  list-style: none;
+  margin-top: 3px;
+}
+main section[data-section=journal] li details ul li .title {
+  display: block;
+  text-align: center;
+  font-size: 0.8em;
+  border-bottom: 1px solid #000;
+}
+main section[data-section=journal] li details ul li summary {
+  font-size: 0.8em;
+  color: black;
+}
+main section[data-section=journal] li details ul li:last-child {
+  padding-bottom: 10px;
+}
+main section[data-section=journal] span {
+  display: block;
+  font-size: 0.6em;
+}
+main section[data-section=journal]::-webkit-scrollbar {
+  display: none;
+}
+main section[data-section=journal] details {
+  width: 100%;
+  border-radius: 10px;
+}
+main section[data-section=journal] details summary {
+  width: 100%;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  color: #005baa;
+  font-size: 1.3em;
+  cursor: pointer;
+}
+main section[data-section=journal] .date {
+  display: block;
+  text-align: center;
+  border-bottom: 1px solid black;
+  margin: 0 auto;
+  font-size: 0.7em;
+}
+main section[data-section=journal] .container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+main section[data-section=journal] .container table {
+  width: 90%;
+  table-layout: fixed;
+  margin-bottom: 10px;
+}
+main section[data-section=journal] .container table th {
+  border: none;
+  border-bottom: 1px solid #000;
+}
+main section[data-section=journal] .container table td {
+  border: none;
+  border-bottom: 1px solid #000;
+  font-size: 0.8em;
+}
+main section[data-section=journal] .container table td[colspan="1"] {
+  text-align: center;
+}
+main section[data-section=journal] .container table th[colspan="1"] {
+  text-align: center;
+}
+main section[data-section=journal] .container li {
+  padding: 0;
+  margin: 0;
+}
+main section[data-section=journal] .container li .info {
+  padding-left: 10px;
+  font-size: 0.8em;
+}
+main section[data-section=journal] .buttonContainer {
+  width: 100%;
+}
+main section[data-section=journal] .buttonContainer .unsuccess {
+  display: block;
+  margin: 0 auto;
+  font-weight: bold;
+  font-size: 1.2em;
+  text-align: center;
+  text-decoration: none;
+  transition: all 0.5s ease-in-out;
+  color: darkred;
+}
+main section[data-section=journal] .buttonContainer .unsuccess:hover {
+  color: red;
+}
+main section[data-section=journal] .buttonContainer .success {
+  display: block;
+  margin: 0 auto;
+  font-weight: bold;
+  font-size: 1.2em;
+  text-align: center;
+  text-decoration: none;
+  transition: all 0.5s ease-in-out;
+  color: darkgreen;
+}
+main section[data-section=journal] .buttonContainer .success:hover {
+  color: green;
+}
+main section[data-section=journal] details[data-details=broken] {
+  background-color: rgba(236, 130, 130, 0.6039215686);
+}
+main section[data-section=journal] details[data-details=inProgress] {
+  background-color: #f0e68c;
+}
+main section[data-section=journal] details[data-details=refurbished] {
+  background-color: rgba(79, 180, 79, 0.6431372549);
+}
+main section[data-section=journal] details[data-details=broad] {
+  background-color: #005baa;
+}
+main section[data-section=journal] details[data-details=blue] {
+  background-color: #b8defe;
 }
 main section[data-section=materialAndNotes] {
   flex: 1;
@@ -340,26 +479,19 @@ main section[data-section=lamp] li details summary {
 main section[data-section=lamp] li .date {
   display: block;
   text-align: center;
-  border-top: 3px solid black;
+  border-bottom: 1px solid black;
   margin: 0 auto;
   font-size: 0.7em;
 }
-main section[data-section=lamp] li .container .title {
-  display: block;
-  margin-top: 5px;
-  padding-left: 10px;
-  font-weight: bold;
-}
-main section[data-section=lamp] li .container .message {
-  padding: 0;
-  margin: 0;
-  font-size: 0.8em;
-  padding-left: 10px;
+main section[data-section=lamp] li .container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 main section[data-section=lamp] li .container table {
-  width: 100%;
+  width: 90%;
   table-layout: fixed;
-  margin-top: 10px;
+  margin-bottom: 10px;
 }
 main section[data-section=lamp] li .container table th {
   border: none;
@@ -421,6 +553,12 @@ main section[data-section=lamp] li details[data-details=inProgress] {
 }
 main section[data-section=lamp] li details[data-details=refurbished] {
   background-color: rgba(79, 180, 79, 0.6431372549);
+}
+main section[data-section=lamp] li details[data-details=broad] {
+  background-color: #005baa;
+}
+main section[data-section=lamp] li details[data-details=blue] {
+  background-color: #b8defe;
 }
 
 footer {

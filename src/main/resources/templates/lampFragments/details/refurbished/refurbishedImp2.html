@@ -73,24 +73,24 @@
     </table>
   </div>
 
-  <th:block th:if="${selectStatus eq true}">
-    <div class="buttonContainer">
-      <span
-        ><a
-          href="#"
-          th:href="@{/lamps/canceled/{id}(id=${refurbishedLamp.id})}"
-          class="success"
-          >Снять с ремонта</a
-        ></span
-      >
-      <span
-        ><a
-          href="#"
-          th:href="@{/lamps/broken/{id}(id=${refurbishedLamp.id})}"
-          class="unsuccess"
-          >Поставить в ремонт</a
-        ></span
-      >
-    </div>
-  </th:block>
+  <div
+    class="buttonContainer"
+    sec:authorize="hasAnyRole('ADMIN', 'USER')">
+    <span
+      ><a
+        href="#"
+        th:href="@{/lamps/canceled/{id}(id=${refurbishedLamp.id})}"
+        class="success"
+        >Снять с ремонта</a
+      ></span
+    >
+    <span
+      ><a
+        href="#"
+        th:href="@{/lamps/broken/{id}(id=${refurbishedLamp.id})}"
+        class="unsuccess"
+        >Поставить в ремонт</a
+      ></span
+    >
+  </div>
 </details>

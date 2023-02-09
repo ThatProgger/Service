@@ -1,6 +1,5 @@
 package com.nsh.services.security;
 
-import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -10,13 +9,10 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.util.matcher.RequestMatcher;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Configuration
 @EnableWebSecurity
+//@EnableMethodSecurity
 public class SecurityConfiguration {
 
     @Bean
@@ -46,12 +42,15 @@ public class SecurityConfiguration {
                                 "/jquery/jquery.js"
                         ).permitAll()
                         .requestMatchers(HttpMethod.GET,
+                                "/lamps/journal")
+                        .hasAnyRole("ADMIN", "USER", "TECHNICAL")
+                        .requestMatchers(HttpMethod.GET,
                                 "/lamps/add",
                                 "/lamps/canceled/**",
                                 "/lamps/broken/**",
                                 "/lamps/error/**",
                                 "/timestamp"
-                        ).hasAnyRole("ADMIN", "USER")
+                        ).hasAnyRole("ADMIN", "USER", "TECHNICAL")
                         .requestMatchers(
                                 HttpMethod.GET,
                                 "/lamps/repair",
@@ -59,7 +58,7 @@ public class SecurityConfiguration {
                                 "/lamps/inProcess/**",
                                 "/job-nomenclatures",
                                 "/material-nomenclatures").hasAnyRole("ADMIN", "TECHNICAL")
-                        .requestMatchers(HttpMethod.POST, "/lamps/add").hasAnyRole("ADMIN", "USER")
+                        .requestMatchers(HttpMethod.POST, "/lamps/add").hasAnyRole("ADMIN", "USER", "TECHNICAL")
                         .requestMatchers(HttpMethod.POST, "/lamp-submit").hasAnyRole("ADMIN", "TECHNICAL")
                         .anyRequest().authenticated())
                 .formLogin(form -> form

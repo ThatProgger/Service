@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
   <head>
     <meta charset="UTF-8" />
     <meta
@@ -25,26 +25,45 @@
           <a
             href="#"
             th:href="@{/lamps/add}"
-            >Вход для ламповой</a
+            >Ламповая</a
           >
         </li>
-        <li>
+        <li sec:authorize="hasAnyRole('ADMIN', 'TECHNICAL')">
           <a
             href="#"
             th:href="@{/lamps/repair}"
-            >Вход для специалиста</a
+            >Ремонт</a
           >
         </li>
+
         <li>
-          <form
-            th:action="@{/logout}"
-            method="POST">
-            <input
-              type="submit"
-              value="Выйти" />
-          </form>
+          <a
+            href="#"
+            th:href="@{/lamps/journal}"
+            sec:authorize="isAuthenticated()"
+            >Журнал</a
+          >
+        </li>
+
+        <li>
+          <a
+            href="javascript: document.logoutForm.submit()"
+            sec:authorize="isAuthenticated()"
+            >Выйти</a
+          >
         </li>
       </ul>
+
+      <form
+        name="logoutForm"
+        th:action="@{/logout}"
+        method="post"
+        th:hidden="true">
+        <input
+          hidden
+          type="submit"
+          value="Sign Out" />
+      </form>
     </header>
 
     <th:block th:if="${main eq 'Sfd8zrP6'}">
@@ -53,6 +72,10 @@
 
     <th:block th:if="${main eq 'Sfd8zrP7'}">
       <main th:replace="~{lampFragments/main/repair :: repair}"></main>
+    </th:block>
+
+    <th:block th:if="${main eq 'Sfd8zrP4'}">
+      <main th:replace="~{lampFragments/main/journal :: journal}"></main>
     </th:block>
 
     <footer></footer>

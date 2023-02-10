@@ -27,7 +27,7 @@
 
       <th:block th:if="${brokenLamp.defects.size() != 0}">
       <div class="container">
-        <table>
+        <table class="full">
           <thead>
             <tr>
               <th>Заявленная неисправность:</th>
@@ -44,7 +44,7 @@
     </th:block>
     <th:block th:if="${brokenLamp.message != ''}">
       <div class="container">
-        <table>
+        <table class="full">
           <thead>
             <tr>
               <th>Примечание ламповщика:</th>

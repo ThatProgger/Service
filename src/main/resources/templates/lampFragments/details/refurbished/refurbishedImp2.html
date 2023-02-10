@@ -15,7 +15,7 @@
   <div
     class="container"
     th:if="${refurbishedLamp.materials.size() != 0}">
-    <table>
+    <table class="full">
       <thead>
         <tr>
           <th colspan="4">Материал</th>
@@ -42,7 +42,7 @@
   <div
     class="container"
     th:if="${refurbishedLamp.jobs.size() != 0}">
-    <table>
+    <table class="full">
       <thead>
         <tr>
           <th>Работа</th>
@@ -59,7 +59,7 @@
   <div
     class="container"
     th:if="${refurbishedLamp.notes.size() != 0}">
-    <table>
+    <table class="full">
       <thead>
         <tr>
           <th>Примечание</th>

@@ -10,7 +10,7 @@
 
   <th:block th:if="${inProcessLamp.defects.size() != 0}">
     <div class="container">
-      <table>
+      <table class="full">
         <thead>
           <tr>
             <th>Заявленная неисправность:</th>
@@ -28,7 +28,7 @@
   <th:block th:if="${inProcessLamp.message != ''}">
     <div class="container">
       <div class="container">
-        <table>
+        <table class="full">
           <thead>
             <tr>
               <th>Примечание ламповщика:</th>

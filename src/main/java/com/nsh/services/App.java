@@ -100,7 +100,7 @@ public class App implements CommandLineRunner {
         jobNomenclatureService.save(JobNomenclature.builder().id(0).nomenclature("Ремонт электрической цепи").build());
         jobNomenclatureService.save(JobNomenclature.builder().id(0).nomenclature("Зарядка АКБ").build());
         jobNomenclatureService.save(JobNomenclature.builder().id(0).nomenclature("Обновление микро ПО радио блока").build());
-
+        jobNomenclatureService.save(JobNomenclature.builder().id(0).nomenclature("Сброс радио блока до заводских настроек").build());
     }
 
     public void registerRole() {

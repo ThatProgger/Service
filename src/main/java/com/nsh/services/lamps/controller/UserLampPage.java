@@ -24,8 +24,8 @@ import java.security.Principal;
  */
 @Controller
 @RequestMapping("/lamps")
-public class UserPage {
-    private Logger logger = LogManager.getLogger(UserPage.class);
+public class UserLampPage {
+    private Logger logger = LogManager.getLogger(UserLampPage.class);
     @Autowired
     private DefectNomenclatureService defectNomenclatureService;
 

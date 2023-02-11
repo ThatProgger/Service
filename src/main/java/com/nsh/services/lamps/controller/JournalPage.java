@@ -1,20 +1,20 @@
 package com.nsh.services.lamps.controller;
 
-import com.nsh.services.lamps.dtos.journalEntryDto.Impl.JournalEntryDtoImpl1;
 import com.nsh.services.lamps.dtos.journalEntryDto.JournalEntryDto;
 import com.nsh.services.lamps.dtos.journalEntryDto.enums.JournalEntryType;
 import com.nsh.services.lamps.dtos.journalEntryDto.factory.JournalEntryFactory;
 import com.nsh.services.lamps.model.Lamp;
 import com.nsh.services.lamps.service.Lamp.LampService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Controller

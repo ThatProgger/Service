@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/lamps")
-public class TechnicalPage {
+public class TechnicalLampPage {
 
-    private Logger logger = LogManager.getLogger(TechnicalPage.class);
+    private Logger logger = LogManager.getLogger(TechnicalLampPage.class);
 
     @Autowired
     private LampService lampService;

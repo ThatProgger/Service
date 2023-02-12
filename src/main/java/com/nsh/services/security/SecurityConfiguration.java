@@ -58,6 +58,8 @@ public class SecurityConfiguration {
                                 "/lamps/inProcess/**",
                                 "/job-nomenclatures",
                                 "/material-nomenclatures").hasAnyRole("ADMIN", "TECHNICAL")
+                        .requestMatchers(HttpMethod.GET, "/users").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/users").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.POST, "/lamps/add").hasAnyRole("ADMIN", "USER", "TECHNICAL")
                         .requestMatchers(HttpMethod.POST, "/lamp-submit").hasAnyRole("ADMIN", "TECHNICAL")
                         .anyRequest().authenticated())
